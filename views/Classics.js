@@ -11,12 +11,12 @@ import { createNativeStackNavigator } from "react-native-screens/native-stack";
 
 const Stack = createNativeStackNavigator();
 
-const Crime = () => {
+const Classics = () => {
   const [books, setBooks] = useState([]);
 
   useEffect(() => {
     fetch(
-      "https://www.googleapis.com/books/v1/volumes?q=crime&printType=books&orderBy=newest&maxResults=6"
+      "https://www.googleapis.com/books/v1/volumes?q=classics&printType=books&orderBy=newest&maxResults=6"
     )
       .then((response) => response.json())
       .then((data) => setBooks(data.items));
@@ -24,7 +24,7 @@ const Crime = () => {
 
   console.log(books);
 
-  const CrimeBooks = books.map((book) => {
+  const ClassicsBooks = books.map((book) => {
     return (
       <View
         style={{
@@ -39,9 +39,7 @@ const Crime = () => {
       >
         <Text>{book.volumeInfo.title}</Text>
         <Text>{book.volumeInfo.authors}</Text>
-        <Text style={{ height: "50%", width: "80%" }}>
-          {book.volumeInfo.description}
-        </Text>
+        <Text>{book.volumeInfo.description}</Text>
         <>
           {/* <Image
             style={{
@@ -61,16 +59,16 @@ const Crime = () => {
 
   return (
     <ScrollView>
-      <Text style={{ fontSize: 40 }}>Newest crime books</Text>
+      <Text style={{ fontSize: 40 }}>Newest Classics</Text>
       <View
         style={{
           display: "flex",
         }}
       >
-        {CrimeBooks}
+        {ClassicsBooks}
       </View>
     </ScrollView>
   );
 };
 
-export default Crime;
+export default Classics;

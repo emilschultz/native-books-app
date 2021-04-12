@@ -5,11 +5,7 @@ import { createNativeStackNavigator } from "react-native-screens/native-stack";
 const Stack = createNativeStackNavigator();
 
 const BooksListHome = () => {
-  return (
-    <View>
-      <Text>My Books</Text>
-    </View>
-  );
+  return <View></View>;
 };
 
 const BooksList = () => {
@@ -20,7 +16,6 @@ const BooksList = () => {
         component={BooksListHome}
         options={{
           title: "My booklist",
-          headerLargeTitle: true,
         }}
       ></Stack.Screen>
     </Stack.Navigator>
