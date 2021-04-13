@@ -1,24 +1,84 @@
 import React, { useState, useEffect } from "react";
-import { Text, View, TextInput, StyleSheet, Button } from "react-native";
+import {
+  Text,
+  View,
+  TextInput,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
 import { createNativeStackNavigator } from "react-native-screens/native-stack";
-import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 
 const Stack = createNativeStackNavigator();
 
 const SearchBooksHome = () => {
   const [newSearch, setNewSearch] = useState("");
+  const [results, setResults] = useState([]);
 
   const searchHandler = (value) => {
     setNewSearch(value);
   };
 
-  useEffect(() => {
-    fetch(
-      `https://www.googleapis.com/books/v1/volumes?q={newSearch}&printType=books&maxResults=1`
-    )
-      .then((response) => response.json())
-      .then((data) => console.log(data.items));
-  }, [newSearch]);
+  // const getData = async () => {
+  //   try {
+  //     useEffect(() => {
+  //       fetch(
+  //         `https://www.googleapis.com/books/v1/volumes?q=${newSearch}&printType=books&maxResults=2`
+  //       )
+  //         .then((response) => response.json())
+  //         .then((data) => setResults(data.items));
+  //     }, [newSearch]);
+  //   } catch {
+  //     console.log("error");
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   const getData = async () => {
+  //     try {
+  //       fetch(
+  //         `https://www.googleapis.com/books/v1/volumes?q=${newSearch}&printType=books&maxResults=2`
+  //       )
+  //         .then((response) => response.json())
+  //         .then((data) => setResults(data.items));
+  //     } catch {
+  //       console.log("error");
+  //     }
+  //   };
+  // }, [newSearch]);
+
+  const getData = async () => {
+    try {
+      fetch(
+        `https://www.googleapis.com/books/v1/volumes?q=${newSearch}+inauthor:${newSearch}&printType=books&maxResults=20`
+      )
+        .then((response) => response.json())
+        .then((data) => setResults(data.items));
+    } catch {
+      console.log("error");
+    }
+  };
+
+  const searchResults = results.map((book) => {
+    return (
+      <View
+        style={{
+          borderWidth: 1,
+          borderColor: "black",
+          display: "flex",
+          flex: 1,
+        }}
+        key={book.id}
+      >
+        <Text style={{ fontStyle: "italic" }}>{book.volumeInfo.title}</Text>
+        <Text>{book.volumeInfo.authors}</Text>
+        <Text>{book.volumeInfo.description}</Text>
+        <TouchableOpacity style={{ borderWidth: 1, width: 150, padding: 8 }}>
+          <Text>Add to My Books</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  });
 
   return (
     <ScrollView>
@@ -29,13 +89,10 @@ const SearchBooksHome = () => {
           onChangeText={searchHandler}
           placeholder="Search"
         />
-        <TouchableOpacity
-          onPress={() => {
-            console.log("NEW SEARCH:", newSearch);
-          }}
-        >
-          <Text>button</Text>
+        <TouchableOpacity onPress={getData}>
+          <Text>Button</Text>
         </TouchableOpacity>
+        {searchResults}
       </View>
     </ScrollView>
   );
