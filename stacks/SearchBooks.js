@@ -8,17 +8,17 @@ const Stack = createNativeStackNavigator();
 const SearchBooksHome = () => {
   const [newSearch, setNewSearch] = useState("");
 
-  const changeHandler = (value) => {
+  const searchHandler = (value) => {
     setNewSearch(value);
   };
 
-  // useEffect(() => {
-  //   fetch(
-  //     `https://www.googleapis.com/books/v1/volumes?q={newSearch}&printType=books&maxResults=1`
-  //   )
-  //     .then((response) => response.json())
-  //     .then((data) => console.log(data.items));
-  // }, []);
+  useEffect(() => {
+    fetch(
+      `https://www.googleapis.com/books/v1/volumes?q={newSearch}&printType=books&maxResults=1`
+    )
+      .then((response) => response.json())
+      .then((data) => console.log(data.items));
+  }, [newSearch]);
 
   return (
     <ScrollView>
@@ -26,10 +26,14 @@ const SearchBooksHome = () => {
         <Text>Looking for something specific?</Text>
         <TextInput
           style={styles.SearchField}
-          onChangeText={changeHandler}
+          onChangeText={searchHandler}
           placeholder="Search"
         />
-        <TouchableOpacity onPress={console.log(newSearch)}>
+        <TouchableOpacity
+          onPress={() => {
+            console.log("NEW SEARCH:", newSearch);
+          }}
+        >
           <Text>button</Text>
         </TouchableOpacity>
       </View>
