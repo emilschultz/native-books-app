@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import {
   Text,
   View,
+  Image,
   TextInput,
   StyleSheet,
   ScrollView,
@@ -50,7 +51,7 @@ const SearchBooksHome = () => {
   const getData = async () => {
     try {
       fetch(
-        `https://www.googleapis.com/books/v1/volumes?q=${newSearch}+inauthor:${newSearch}&printType=books&maxResults=20`
+        `https://www.googleapis.com/books/v1/volumes?q=${newSearch}&printType=books&maxResults=20`
       )
         .then((response) => response.json())
         .then((data) => setResults(data.items));
@@ -61,18 +62,16 @@ const SearchBooksHome = () => {
 
   const searchResults = results.map((book) => {
     return (
-      <View
-        style={{
-          borderWidth: 1,
-          borderColor: "black",
-          display: "flex",
-          flex: 1,
-        }}
-        key={book.id}
-      >
+      <View style={styles.container} key={book.id}>
         <Text style={{ fontStyle: "italic" }}>{book.volumeInfo.title}</Text>
         <Text>{book.volumeInfo.authors}</Text>
         <Text>{book.volumeInfo.description}</Text>
+        <Image
+          style={{ width: 100, height: 150 }}
+          source={{
+            uri: `${book.volumeInfo.imageLinks.smallThumbnail}`,
+          }}
+        />
         <TouchableOpacity style={{ borderWidth: 1, width: 150, padding: 8 }}>
           <Text>Add to My Books</Text>
         </TouchableOpacity>
@@ -119,5 +118,13 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 10,
     width: "80%",
+  },
+  container: {
+    height: "100%",
+    width: "100%",
+    borderWidth: 1,
+    borderColor: "black",
+    display: "flex",
+    flex: 1,
   },
 });
