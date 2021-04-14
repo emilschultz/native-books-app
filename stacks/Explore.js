@@ -7,40 +7,21 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { createNativeStackNavigator } from "react-native-screens/native-stack";
+
 // views
-import Crime from "../views/Crime";
-import SciFi from "../views/SciFi";
-import Classics from "../views/Classics";
-import Biography from "../views/Biography";
-import Romance from "../views/Romance";
-import Fantasy from "../views/Fantasy";
+import Genre from "../views/Genre";
 
 const Stack = createNativeStackNavigator();
 
 const ExploreHome = ({ navigation }) => {
-  const navigateCrimeSection = () => {
-    navigation.navigate("Crime");
-  };
-
-  const navigateSciFiSection = () => {
-    navigation.navigate("SciFi");
-  };
-
-  const navigateClassicsSection = () => {
-    navigation.navigate("Classics");
-  };
-
-  const navigateBiographySection = () => {
-    navigation.navigate("Biography");
-  };
-
-  const navigateRomanceSection = () => {
-    navigation.navigate("Romance");
-  };
-
-  const navigateFantasySection = () => {
-    navigation.navigate("Fantasy");
-  };
+  navigation.navigate("Genre", {
+    genre: "crime",
+    genre: "science fiction",
+    genre: "classics",
+    genre: "biography",
+    genre: "romance",
+    genre: "fantasy",
+  });
 
   return (
     <ScrollView>
@@ -53,14 +34,18 @@ const ExploreHome = ({ navigation }) => {
       <View style={styles.container}>
         <View style={styles.flexRow}>
           <TouchableOpacity
-            onPress={navigateCrimeSection}
+            onPress={() => {
+              navigation.navigate("Genre", { genre: "crime" });
+            }}
             style={styles.categoryBox}
           >
             <Text>Crime</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
-            onPress={navigateSciFiSection}
+            onPress={() => {
+              navigation.navigate("Genre", { genre: "science fiction" });
+            }}
             style={styles.categoryBox}
           >
             <Text>Sci-Fi</Text>
@@ -69,13 +54,17 @@ const ExploreHome = ({ navigation }) => {
 
         <View style={styles.flexRow}>
           <TouchableOpacity
-            onPress={navigateClassicsSection}
+            onPress={() => {
+              navigation.navigate("Genre", { genre: "classics" });
+            }}
             style={styles.categoryBox}
           >
             <Text>Classics</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={navigateBiographySection}
+            onPress={() => {
+              navigation.navigate("Genre", { genre: "biography" });
+            }}
             style={styles.categoryBox}
           >
             <Text>Biography</Text>
@@ -83,13 +72,17 @@ const ExploreHome = ({ navigation }) => {
         </View>
         <View style={styles.flexRow}>
           <TouchableOpacity
-            onPress={navigateRomanceSection}
+            onPress={() => {
+              navigation.navigate("Genre", { genre: "romance" });
+            }}
             style={styles.categoryBox}
           >
             <Text>Romance</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={navigateFantasySection}
+            onPress={() => {
+              navigation.navigate("Genre", { genre: "fantasy" });
+            }}
             style={styles.categoryBox}
           >
             <Text>Fantasy</Text>
@@ -137,51 +130,12 @@ const Explore = () => {
           title: "Explore",
         }}
       ></Stack.Screen>
+
       <Stack.Screen
-        name="Crime"
-        component={Crime}
+        name="Genre"
+        component={Genre}
         options={{
-          title: "Crime",
-          headerLargeTitle: false,
-        }}
-      ></Stack.Screen>
-      <Stack.Screen
-        name="SciFi"
-        component={SciFi}
-        options={{
-          title: "SciFi",
-          headerLargeTitle: false,
-        }}
-      ></Stack.Screen>
-      <Stack.Screen
-        name="Classics"
-        component={Classics}
-        options={{
-          title: "Classics",
-          headerLargeTitle: false,
-        }}
-      ></Stack.Screen>
-      <Stack.Screen
-        name="Biography"
-        component={Biography}
-        options={{
-          title: "Biography",
-          headerLargeTitle: false,
-        }}
-      ></Stack.Screen>
-      <Stack.Screen
-        name="Romance"
-        component={Romance}
-        options={{
-          title: "Romance",
-          headerLargeTitle: false,
-        }}
-      ></Stack.Screen>
-      <Stack.Screen
-        name="Fantasy"
-        component={Fantasy}
-        options={{
-          title: "Fantasy",
+          title: "Genre",
           headerLargeTitle: false,
         }}
       ></Stack.Screen>

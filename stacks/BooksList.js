@@ -4,8 +4,14 @@ import { createNativeStackNavigator } from "react-native-screens/native-stack";
 
 const Stack = createNativeStackNavigator();
 
-const BooksListHome = () => {
-  return <View></View>;
+const BooksListHome = (props) => {
+  console.log("PROPS:", props.booklist);
+  return (
+    <View>
+      <Text>Her er nogle props</Text>
+      {/* <Text>{props.booksList}</Text> */}
+    </View>
+  );
 };
 
 const BooksList = () => {
