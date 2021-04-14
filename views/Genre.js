@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import {
   Text,
   View,
+  Image,
   ScrollView,
   TouchableOpacity,
   StyleSheet,
@@ -30,9 +31,15 @@ const Genre = ({ route }) => {
     return (
       <View style={styles.container} key={book.id}>
         <View>
+          <Image
+            style={{ width: 100, height: 150 }}
+            source={{
+              uri: `${book.volumeInfo.imageLinks.smallThumbnail}`,
+            }}
+          />
           <Text>{book.volumeInfo.title}</Text>
           <Text>{book.volumeInfo.authors}</Text>
-          {/* <Text>{book.volumeInfo.description}</Text> */}
+          <Text>{book.volumeInfo.description}</Text>
         </View>
         <TouchableOpacity onPress={() => addToMyBooksHandler(book)}>
           <Text style={{ borderWidth: 0.5, backgroundColor: "white" }}>
@@ -59,7 +66,7 @@ const Genre = ({ route }) => {
 
 const styles = StyleSheet.create({
   container: {
-    height: 200,
+    height: "100%",
     width: "100%",
     borderWidth: 1,
     borderColor: "black",
