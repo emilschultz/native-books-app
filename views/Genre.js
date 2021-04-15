@@ -8,10 +8,13 @@ import {
   StyleSheet,
 } from "react-native";
 
+import { useMyBooks } from "../context/MyBooksContext";
+
 const Genre = ({ route }) => {
   const genre = route.params.genre;
   const [books, setBooks] = useState([]);
-  const [myBooks, setMyBooks] = useState([]);
+  // const [myBooks, setMyBooks] = useState([]);
+  const adddNew = useMyBooks();
 
   useEffect(() => {
     fetch(
@@ -20,12 +23,6 @@ const Genre = ({ route }) => {
       .then((response) => response.json())
       .then((data) => setBooks(data.items));
   }, []);
-
-  const addToMyBooksHandler = (book) => {
-    const addBook = [...myBooks, book];
-    setMyBooks(addBook);
-    console.log("NY BOG TILFØJET:", myBooks);
-  };
 
   const GenreBooks = books.map((book) => {
     return (
@@ -38,10 +35,18 @@ const Genre = ({ route }) => {
             }}
           />
           <Text>{book.volumeInfo.title}</Text>
-          <Text>{book.volumeInfo.authors}</Text>
+          <Text>By {book.volumeInfo.authors}</Text>
           <Text>{book.volumeInfo.description}</Text>
         </View>
-        <TouchableOpacity onPress={() => addToMyBooksHandler(book)}>
+        <TouchableOpacity
+          onPress={() => {
+            adddNew.addToMyBooks({
+              title: book.volumeInfo.title,
+              author: book.volumeInfo.authors,
+              description: book.volumeInfo.description,
+            });
+          }}
+        >
           <Text style={{ borderWidth: 0.5, backgroundColor: "white" }}>
             Add to my books
           </Text>

@@ -1,15 +1,17 @@
 import React from "react";
 import { Text, View } from "react-native";
 import { createNativeStackNavigator } from "react-native-screens/native-stack";
+import { useMyBooks } from "../context/MyBooksContext";
 
 const Stack = createNativeStackNavigator();
 
-const BooksListHome = (props) => {
-  console.log("PROPS:", props.booklist);
+const BooksListHome = () => {
+  const books = useMyBooks();
+
+  console.log("MYYYY BOOOOKS!:", books.myBooks);
   return (
     <View>
-      <Text>Her er nogle props</Text>
-      {/* <Text>{props.booksList}</Text> */}
+      <Text>Hej</Text>
     </View>
   );
 };
