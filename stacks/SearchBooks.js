@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   Text,
   View,
@@ -21,34 +21,6 @@ const SearchBooksHome = () => {
   const searchHandler = (value) => {
     setNewSearch(value);
   };
-
-  // const getData = async () => {
-  //   try {
-  //     useEffect(() => {
-  //       fetch(
-  //         `https://www.googleapis.com/books/v1/volumes?q=${newSearch}&printType=books&maxResults=2`
-  //       )
-  //         .then((response) => response.json())
-  //         .then((data) => setResults(data.items));
-  //     }, [newSearch]);
-  //   } catch {
-  //     console.log("error");
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   const getData = async () => {
-  //     try {
-  //       fetch(
-  //         `https://www.googleapis.com/books/v1/volumes?q=${newSearch}&printType=books&maxResults=2`
-  //       )
-  //         .then((response) => response.json())
-  //         .then((data) => setResults(data.items));
-  //     } catch {
-  //       console.log("error");
-  //     }
-  //   };
-  // }, [newSearch]);
 
   const getData = async () => {
     try {

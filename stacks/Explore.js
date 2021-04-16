@@ -8,11 +8,11 @@ import {
 } from "react-native";
 import { createNativeStackNavigator } from "react-native-screens/native-stack";
 
-// views
 import Genre from "../views/Genre";
 
 const Stack = createNativeStackNavigator();
 
+//
 const ExploreHome = ({ navigation }) => {
   navigation.navigate("Genre", {
     genre: "crime",
@@ -135,7 +135,7 @@ const Explore = () => {
         name="Genre"
         component={Genre}
         options={{
-          title: "Genre",
+          title: `${genre}`,
           headerLargeTitle: false,
         }}
       ></Stack.Screen>
