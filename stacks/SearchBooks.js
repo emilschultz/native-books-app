@@ -22,6 +22,14 @@ const SearchBooksHome = () => {
     setNewSearch(value);
   };
 
+  const showAlert = () => {
+    Alert.alert("Added to My Books", "nice", [
+      {
+        text: "OK",
+      },
+    ]);
+  };
+
   const getData = async () => {
     try {
       fetch(
@@ -55,6 +63,7 @@ const SearchBooksHome = () => {
               description: book.volumeInfo.description,
               image: book.volumeInfo.imageLinks.smallThumbnail,
             });
+            showAlert();
           }}
           style={{ borderWidth: 1, width: 150, padding: 8 }}
         >

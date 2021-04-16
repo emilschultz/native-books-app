@@ -15,7 +15,7 @@ const Genre = ({ route }) => {
   const genre = route.params.genre;
   const [books, setBooks] = useState([]);
 
-  // from MyBooksContext
+  // context
   const adddNew = useMyBooks();
 
   // show a lame alert pop up when added to My Books
@@ -23,7 +23,6 @@ const Genre = ({ route }) => {
     Alert.alert("Added to My Books", "nice", [
       {
         text: "OK",
-        onPress: () => console.log("PRESSED: OK"),
       },
     ]);
   };
