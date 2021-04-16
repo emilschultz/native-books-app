@@ -9,12 +9,14 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { createNativeStackNavigator } from "react-native-screens/native-stack";
+import { useMyBooks } from "../context/MyBooksContext";
 
 const Stack = createNativeStackNavigator();
 
 const SearchBooksHome = () => {
   const [newSearch, setNewSearch] = useState("");
   const [results, setResults] = useState([]);
+  const adddNew = useMyBooks();
 
   const searchHandler = (value) => {
     setNewSearch(value);
@@ -56,23 +58,34 @@ const SearchBooksHome = () => {
         .then((response) => response.json())
         .then((data) => setResults(data.items));
     } catch {
-      console.log("error");
+      console.log("error fetching data");
     }
   };
 
   const searchResults = results.map((book) => {
     return (
       <View style={styles.container} key={book.id}>
-        <Text style={{ fontStyle: "italic" }}>{book.volumeInfo.title}</Text>
-        <Text>{book.volumeInfo.authors}</Text>
-        <Text>{book.volumeInfo.description}</Text>
         <Image
           style={{ width: 100, height: 150 }}
           source={{
             uri: `${book.volumeInfo.imageLinks.smallThumbnail}`,
           }}
         />
-        <TouchableOpacity style={{ borderWidth: 1, width: 150, padding: 8 }}>
+        <Text style={{ fontStyle: "italic" }}>{book.volumeInfo.title}</Text>
+        <Text>By {book.volumeInfo.authors}</Text>
+        <Text>{book.volumeInfo.description}</Text>
+
+        <TouchableOpacity
+          onPress={() => {
+            adddNew.addToMyBooks({
+              title: book.volumeInfo.title,
+              author: book.volumeInfo.authors,
+              description: book.volumeInfo.description,
+              image: book.volumeInfo.imageLinks.smallThumbnail,
+            });
+          }}
+          style={{ borderWidth: 1, width: 150, padding: 8 }}
+        >
           <Text>Add to My Books</Text>
         </TouchableOpacity>
       </View>
@@ -88,8 +101,11 @@ const SearchBooksHome = () => {
           onChangeText={searchHandler}
           placeholder="Search"
         />
-        <TouchableOpacity onPress={getData}>
-          <Text>Button</Text>
+        <TouchableOpacity
+          style={{ borderWidth: 0.5, backgroundColor: "lightgreen" }}
+          onPress={getData}
+        >
+          <Text>Search books</Text>
         </TouchableOpacity>
         {searchResults}
       </View>
